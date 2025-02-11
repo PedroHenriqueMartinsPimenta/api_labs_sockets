@@ -129,9 +129,9 @@ app.post('/bloquear/:lab', (req, res) => {
   labs_block.push(lab);
   res.send({ success: true, labs: lab});
 });
-
+var temp = 0;
 app.get('/mudaTemperatura/:temp', function(req, res){
-  var temp = req.params.temp;
+  temp = req.params.temp;
   io.emit(" ", "Mudança na temperatura para " + temp)
   res.json({result:ok})
 })
