@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.get('/exibir', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/home.html');
 });
 
 app.post("/logar", async function(req, res){
@@ -132,7 +132,7 @@ app.post('/bloquear/:lab', (req, res) => {
 
 app.get('/mudaTemperatura/:temp', function(req, res){
   var temp = req.params.temp;
-  io.emit("mudouTemperatura", "Mudança na temperatura para " + temp)
+  io.emit(" ", "Mudança na temperatura para " + temp)
   res.json({result:ok})
 })
 
