@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <style>
+      .div1 {
+        width: 90%;
+        height: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <div id="div1" class="div1">
+      <h1>Monitor de temperatura</h1>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+
+      function enviar() {
+        var input = document.getElementById('input1');
+        if (input.value) {
+          socket.emit('mensageiro', input.value);
+          input.value = '';
+        }
+      }
+
+      socket.on('mudouTemperatura', function(msg) {
+        var div1 = document.getElementById("div1");
+        div1.innerHTML = "<p>" + msg + "</p>";
+      });
+    </script>
+  </body>
+</html>
