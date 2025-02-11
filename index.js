@@ -140,6 +140,18 @@ app.get("/temperaturaAtual", function(req, res){
   res.sendFile(__dirname + '/temp.html');
 })
 
+var luz = false
+app.get("/ligarLuz", function(req, res){
+  if(luz){
+    luz = false
+  }else{
+    luz = true
+  }
+
+  io.emit("ligaLuz", luz)
+  res.json({luz: luz})
+});
+
 
 io.on('connection', (socket) => {
   console.log("novo usuário conectado");
@@ -149,6 +161,10 @@ io.on('connection', (socket) => {
 
   socket.on('sincronizarConteudo', (conteudo) => {
     io.emit('sincronizarConteudo', conteudo);
+  });
+
+  socket.on('ligaLuz', (luz) => {
+    io.emit('ligaLuz', luz);
   });
 
   socket.on('mudouTemperatura', (novaTemperatura) => {

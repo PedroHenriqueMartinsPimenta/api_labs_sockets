@@ -9,7 +9,7 @@
       }
     </style>
   </head>
-  <body>
+  <body id="body">
     
     <div id="div1" class="div1">
       <h1>Monitor de laboratorios</h1>
@@ -32,6 +32,13 @@
         var div1 = document.getElementById("div1");
         div1.innerHTML += "<p>" + msg + "</p>";
       });
+      socket.on('ligaLuz', function(luz){
+        if(luz){
+          document.querySelector("#body").style.background = "white"
+        }else{
+          document.querySelector("#body").style.background = "black"
+        }
+      })
     </script>
   </body>
 </html>
