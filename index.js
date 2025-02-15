@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const userModel = require('./models/user');
 const user = require('./models/user');
+const cors = require('cors')
 
 const db_connect = 'mongodb+srv://pedrohenrique234322:pedrohenrique234322@cluster0.a3g2d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
@@ -16,6 +17,13 @@ const io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 
 var labs_block = []
+
+app.use(cors(
+    {
+        "origin": "*",
+        "methods": "GET,PUT,POST,DELETE",
+    }
+));
 
 app.get("/", (req, res) => {
     res.json({
@@ -130,8 +138,8 @@ app.post('/bloquear/:lab', (req, res) => {
   res.send({ success: true, labs: lab});
 });
 var temp = 0;
-app.get('/mudaTemperatura/:temp', function(req, res){
-  temp = req.params.temp;
+app.get('/mudaTemperatura', function(req, res){
+  temp = req.query.temp;
   io.emit(" ", "Mudança na temperatura para " + temp)
   res.json({result:ok})
 })
